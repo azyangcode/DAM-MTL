@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dam-mtl-regression"
+version = "1.0.0"
+description = "Regression implementation of DAM-MTL for cross-session neural decoding"
+authors = [{ name = "An" }]
+requires-python = ">=3.8"
+dependencies = [
+    "torch>=1.10",
+    "numpy>=1.21",
+    "scipy>=1.7",
+    "pandas>=1.4",
+    "h5py>=3.4",
+    "PyYAML>=6.0",
+]
+
+[project.scripts]
+dam-mtl-regression = "dam_mtl.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

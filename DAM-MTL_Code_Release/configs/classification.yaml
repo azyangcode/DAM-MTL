@@ -1,0 +1,83 @@
+status: settings_only
+note: Classification data, training code, and results are not included in this release.
+
+task:
+  type: three_class_decoding
+  monkeys: [B, H]
+  classes: 3
+  calibration_trials_per_class: 5
+
+input:
+  signal: multi_unit_activity
+  representation: neural_activity_vectors
+  analysis_window_ms: 300
+  bin_size_ms: 50
+  feature_dimensions:
+    B: 480
+    H: 396
+  channel_padding: none
+
+model:
+  backbone: shared_with_regression
+  convolutional_blocks:
+    - kernel_size: 7
+      stride: 1
+      padding: 1
+      channels: 32
+    - kernel_size: 3
+      stride: 1
+      padding: 1
+      channels: 64
+    - kernel_size: 3
+      stride: 1
+      padding: 1
+      channels: 128
+  session_descriptor:
+    dimension: 64
+    components: [learnable_session_offset, normalized_time_projection]
+  modulation:
+    placement: convolution_output
+    parameters_per_channel: [scale, bias]
+  dropout: 0.2
+  shared_hidden_dim: 256
+  output_dim: 3
+  loss: cross_entropy
+
+protocol:
+  lodo_folds:
+    B: 14
+    H: 8
+  forward_chain_folds:
+    B: 9
+    H: 3
+  minimum_source_sessions: 5
+
+training:
+  seeds: [1000, 50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000]
+  stage1:
+    optimizer: SGD
+    learning_rate: 0.001
+    momentum: 0.9
+    batch_size: 36
+    epochs: 10
+  stage2:
+    iterations: 50
+    inner_steps: 3
+    inner_learning_rate: 0.01
+    outer_optimizer: AdamW
+    outer_learning_rate: 0.0001
+    weight_decay: 0.0001
+    anchor_coefficient: 0.05
+    gradient_clip_norm: 2.0
+    batch_size: 36
+  stage3:
+    optimizer: SGD
+    learning_rate: 0.01
+    momentum: 0.9
+    batch_size: 32
+    max_epochs: 100
+    early_stopping_patience: 10
+
+evaluation:
+  metrics: [accuracy]
+  chance_level: 0.3333

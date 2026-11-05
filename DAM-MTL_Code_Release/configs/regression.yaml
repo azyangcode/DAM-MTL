@@ -1,0 +1,48 @@
+data:
+  root: data/regression
+  manifest: data/manifest.csv
+  channels: 95
+  window_ms: 240
+  step_ms: 120
+
+protocol:
+  calibration_seconds: 120
+  validation_fraction: 0.2
+  minimum_source_sessions: 5
+  source_meta_fraction: 0.7
+
+training:
+  seeds:
+    - 1000
+    - 50000
+    - 100000
+    - 150000
+    - 200000
+    - 250000
+    - 300000
+    - 350000
+    - 400000
+    - 450000
+  stage1:
+    epochs: 10
+    batch_size: 36
+    learning_rate: 0.001
+    momentum: 0.9
+  stage2:
+    iterations: 50
+    inner_steps: 3
+    inner_learning_rate: 0.01
+    outer_learning_rate: 0.0001
+    weight_decay: 0.0001
+    anchor_coefficient: 0.05
+    gradient_clip_norm: 2.0
+    batch_size: 36
+  stage3:
+    max_epochs: 100
+    patience: 10
+    batch_size: 32
+    learning_rate: 0.01
+    momentum: 0.9
+
+evaluation:
+  query_batch_size: 512
