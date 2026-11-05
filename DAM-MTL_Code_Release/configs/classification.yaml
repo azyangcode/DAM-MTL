@@ -1,5 +1,4 @@
-status: settings_only
-note: Classification data, training code, and results are not included in this release.
+
 
 task:
   type: three_class_decoding
