@@ -92,7 +92,7 @@ The final regression model uses a time-conditioned session descriptor and channe
 | Stage 2 | `50` meta-iterations, `3` inner-loop steps, inner learning rate `0.01`, AdamW outer optimizer with learning rate `1e-4`, weight decay `1e-4`, anchor coefficient `0.05`, gradient clipping `2.0` |
 | Stage 3 | SGD, learning rate `1e-2`, momentum `0.9`, batch size `32`, at most `100` epochs, early-stopping patience `10` |
 
-Source sessions are split chronologically into 70% meta-training and 30% meta-query samples. The target-session offset is initialized by the model's default initializer and is updated with the other target-adaptation parameters using only the calibration segment.
+The target-session offset is initialized by the model's default initializer and is updated with the other target-adaptation parameters using only the calibration segment.
 
 Training seeds are `1000, 50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000`. For fold `f` and seed index `j`, the random seed is `seed_base[j] + f`.
 
