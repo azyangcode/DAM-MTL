@@ -1,4 +1,4 @@
-# DAM-MTL regression code
+# DAM-MTL code
 
 This repository contains the regression implementation used for cross-session decoder calibration in the DAM-MTL study. It includes the processed Monkey I and Monkey L sessions, the leave-one-day-out (LODO) and forward-chain protocols, the three-stage training procedure, and the final evaluation metrics.
 
