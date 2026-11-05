@@ -1,6 +1,6 @@
 # Classification settings
 
-Classification used the private datasets from Monkeys B and H. These data, the classification training code, and classification results are not included in this release.
+Classification used the private datasets from Monkeys B and H. These datas are not included in this release.
 
 The settings below follow the manuscript. Classification and regression use the same convolutional backbone, 64-dimensional time-conditioned session descriptor, and channel-wise modulation network. The only architectural difference is the output layer: three logits for classification and two velocity outputs for regression.
 
